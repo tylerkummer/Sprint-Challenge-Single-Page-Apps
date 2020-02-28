@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import CharacterCard from "./CharacterCard";
 import SearchForm from "./SearchForm";
 
@@ -14,8 +13,8 @@ export default function CharacterList() {
     //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
     axios.get(`https://cors-anywhere.herokuapp.com/https://rickandmortyapi.com/api/character/`)
     .then(response => {
-      const para = response.data.results.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
-      setCharacter(para);
+      const parameter = response.data.results.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+      setCharacter(parameter);
     })
     .catch(error => {
       console.log("Error Found: ", error);
@@ -27,24 +26,12 @@ export default function CharacterList() {
   }
 
   return (
-    <section className="character-list">
-      {/* <h2>TODO: `array.map()` over your state here!</h2> */}
-      <div className="search-bar">
-        <form className="search">
-          <input
-            type="text"
-            onChange={handleInputChange}
-            value={query}
-            name="name"
-            tabIndex="0"
-            className="prompt search-name"
-            placeholder="search by name"
-            autoComplete="off"
-          />
-        </form>
-      </div>      
-      
+    <section className="character-list">   
       <div className="character-card">
+        <SearchForm
+          handle={handleInputChange}
+          value={query}
+        />
         {character.map((char) => {
           return (
             <div className="characters" key={char.id}>
@@ -58,7 +45,6 @@ export default function CharacterList() {
           )
         })}
       </div>
-      
     </section>
   );
 }

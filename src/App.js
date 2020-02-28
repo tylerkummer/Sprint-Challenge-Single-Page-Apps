@@ -3,7 +3,6 @@ import Header from "./components/Header.js";
 import {Route} from 'react-router-dom';
 import WelcomePage from "./components/WelcomePage.js";
 import CharacterList from "./components/CharacterList.js";
-import SearchForm from "./components/SearchForm.js";
 
 export default function App() {
   return (
@@ -13,9 +12,6 @@ export default function App() {
       </Route>
       <Route>
         <Header />
-      </Route>
-      <Route>
-        <SearchForm/>
       </Route>
       <Route>
         <CharacterList />
