@@ -15,7 +15,9 @@ export default function App() {
         <Header />
       </Route>
       <Route>
-      {/* <Route exact path="/character/:characterID"> */}
+        <SearchForm/>
+      </Route>
+      <Route>
         <CharacterList />
       </Route>
     </main>

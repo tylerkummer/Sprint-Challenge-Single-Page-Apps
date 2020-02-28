@@ -8,16 +8,14 @@ export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [character, setCharacter] = useState([]);
   const [query, setQuery] = useState("");
-  const {characterID} = useParams();
 
-  useEffect(() => {
-    const id = characterID; 
+  useEffect(() => { 
     // TODO: Add API Request here - must run in `useEffect`
     //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-    axios.get(`https://cors-anywhere.herokuapp.com/https://rickandmortyapi.com/api/character/1`)
+    axios.get(`https://cors-anywhere.herokuapp.com/https://rickandmortyapi.com/api/character/`)
     .then(response => {
-      setCharacter(response.data);
-      console.log("List: ", response.data);
+      const para = response.data.results.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+      setCharacter(para);
     })
     .catch(error => {
       console.log("Error Found: ", error);
@@ -30,36 +28,37 @@ export default function CharacterList() {
 
   return (
     <section className="character-list">
-      {/* <h2>TODO: `array.map()` over your state here!</h2>
-      {character.map((char) => {
-        return (
-          <div className = "characters" key={char.id}>
-            <CharacterCard
-              name={char.name}
-              status={char.status}
-              gender={char.gender}
-            />
-
-             <SearchForm
-              handle={handleInputChange}
-              value={query}
+      {/* <h2>TODO: `array.map()` over your state here!</h2> */}
+      <div className="search-bar">
+        <form className="search">
+          <input
+            type="text"
+            onChange={handleInputChange}
+            value={query}
+            name="name"
+            tabIndex="0"
+            className="prompt search-name"
+            placeholder="search by name"
+            autoComplete="off"
+          />
+        </form>
+      </div>      
+      
+      <div className="character-card">
+        {character.map((char) => {
+          return (
+            <div className="characters" key={char.id}>
+              <CharacterCard
+                avatar={char.avatar}
+                name={char.name}
+                status={char.status}
+                gender={char.gender}
               />
-          </div>
-        )
-      })} */}
-
-
-      <CharacterCard
-        name={character.name}
-        status={character.status}
-        gender={character.gender}
-      />
-
-      <SearchForm
-        handle={handleInputChange}
-        value={query}
-      />
-
+            </div>
+          )
+        })}
+      </div>
+      
     </section>
   );
 }
