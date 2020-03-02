@@ -29,6 +29,8 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 > Answer:
 
+    By using client-side routing it allows us to build a single page web application with navigation without the page having to refresh.
+
 ## Project Set Up
 
 Follow these steps to set up and work on your project:
